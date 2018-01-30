@@ -10,15 +10,17 @@ import com.badlogic.gdx.math.Vector2;
  */
 
 public class StaticSprite implements VisualObject{
-    Texture texture;
-    Vector2 drawPosition;
-    float height;
-    float width;
+    private Texture texture;
+    private Vector2 drawPosition;
+    private Vector2 position;
+    private float height;
+    private float width;
 
     public StaticSprite(Texture texture, Vector2 position){
         this.texture = texture;
         this.height = texture.getHeight();
         this.width = texture.getWidth();
+        this.position = position;
         this.drawPosition = new Vector2(position.x - width/2, position.y - height/2);
     }
 
@@ -32,6 +34,7 @@ public class StaticSprite implements VisualObject{
 
     @Override
     public void render(SpriteBatch spriteBatch) {
+        drawPosition.set(position.x - width/2, position.y - height/2);
         spriteBatch.draw(texture, drawPosition.x,drawPosition.y);
     }
 
@@ -41,7 +44,15 @@ public class StaticSprite implements VisualObject{
     }
 
     public void setPosition(Vector2 position){
-        this.drawPosition = drawPosition.set(position.x - width/2, position.y - height/2);
+        this.position = position;
+    }
+
+    public void setStaticPosition(Vector2 staticPosition){
+        setPosition(new Vector2(staticPosition));
+    }
+
+    public void setStaticPosition(float x, float y){
+        setPosition(new Vector2(x,y));
     }
 
 }

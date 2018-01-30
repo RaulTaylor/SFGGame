@@ -33,10 +33,10 @@ public class Player implements VisualObject {
             Vector2 speedVector = range.cpy().nor().scl(speed * delta);
             if (range.len() > speedVector.len()) {
                 position.add(speedVector);
-                sprite.setPosition(position);
+               // sprite.setPosition(position);
             } else {
                 position.set(targetPos);
-                sprite.setPosition(position);
+               // sprite.setPosition(position);
             }
 
 
@@ -57,8 +57,6 @@ public class Player implements VisualObject {
 
 
     public void setTarget(float x, float y) {
-
         targetPos.set(x, y);
-        System.out.println("Drag: " + targetPos);
     }
 }

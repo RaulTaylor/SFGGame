@@ -19,9 +19,9 @@ import xyz.raultaylor.spaceflygun.engine.graphics.VisualObject;
 
 public class MenuScreen extends Base2DScreen {
 
-    ArrayList<VisualObject> visualObjectList;
-    SpriteBatch spriteBatch;
-    Player player;
+    private ArrayList<VisualObject> visualObjectList;
+    private SpriteBatch spriteBatch;
+    private Player player;
 
 
     public MenuScreen(Game game){

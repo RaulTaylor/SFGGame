@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
@@ -33,10 +34,9 @@ public class MenuScreen extends Base2DScreen {
         Gdx.input.setInputProcessor(this);
         visualObjectList = new ArrayList<VisualObject>();
         spriteBatch = new SpriteBatch();
-        player = new Player(new Texture("images/ship.png"),500);
+        player = new Player(new Texture("images/ship.png"),new Vector2(100,100), 500);
         visualObjectList.add(new BackGround(new Texture("images/bg.png")));
         visualObjectList.add(player);
-
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import xyz.raultaylor.spaceflygun.engine.graphics.StaticSprite;
 import xyz.raultaylor.spaceflygun.engine.graphics.VisualObject;
 
 /**
@@ -12,23 +13,16 @@ import xyz.raultaylor.spaceflygun.engine.graphics.VisualObject;
 
 public class Player implements VisualObject {
 
-    private Texture texture;
-    private Vector2 centerPos;
-    private Vector2 drawPos;
+    private StaticSprite sprite;
     private Vector2 position;
     private Vector2 targetPos;
     private float speed;
 
-    public Player(Texture texture, float speed) {
-        this.texture = texture;
+    public Player(Texture texture,Vector2 startPosition, float speed) {
         this.speed = speed;
-        drawPos = new Vector2(0, 0);
-        centerPos = drawPos.cpy().add(new Vector2(texture.getWidth() / 2, texture.getHeight() / 2));
-        targetPos = new Vector2(centerPos);
-        position = new Vector2(centerPos);
-
-        System.out.println(centerPos);
-
+        position = startPosition;
+        targetPos = new Vector2(startPosition);
+        sprite = new StaticSprite(texture, position);
     }
 
     @Override
@@ -39,11 +33,10 @@ public class Player implements VisualObject {
             Vector2 speedVector = range.cpy().nor().scl(speed * delta);
             if (range.len() > speedVector.len()) {
                 position.add(speedVector);
-                drawPos.set(position).sub(centerPos);
-
+                sprite.setPosition(position);
             } else {
                 position.set(targetPos);
-                drawPos.set(position).sub(centerPos);
+                sprite.setPosition(position);
             }
 
 
@@ -54,13 +47,12 @@ public class Player implements VisualObject {
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.draw(texture, drawPos.x, drawPos.y);
-
+        sprite.render(sb);
     }
 
     @Override
     public void dispose() {
-        texture.dispose();
+        sprite.dispose();
     }
 
 

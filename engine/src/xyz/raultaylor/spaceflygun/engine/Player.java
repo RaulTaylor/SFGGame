@@ -29,7 +29,7 @@ public class Player implements VisualObject {
     public void update(float delta) {
         Vector2 range = new Vector2(targetPos);
         range.sub(position);
-        if (range.len() > 0.1f) {
+        if (range.len() > 0) {
             Vector2 speedVector = range.cpy().nor().scl(speed * delta);
             if (range.len() > speedVector.len()) {
                 position.add(speedVector);

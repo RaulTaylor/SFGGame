@@ -13,6 +13,7 @@ import xyz.raultaylor.spaceflygun.engine.graphics.VisualObject;
 public class BackGround implements VisualObject {
 
     private Texture texture;
+    private boolean visibility;
 
     public BackGround(Texture texture){
         this.texture = texture;
@@ -25,11 +26,33 @@ public class BackGround implements VisualObject {
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.draw(texture,0,0);
+        if(visibility) {
+            sb.draw(texture, 0, 0);
+        }
     }
 
     @Override
     public void dispose() {
         texture.dispose();
+    }
+
+    @Override
+    public boolean isHide() {
+        return !visibility;
+    }
+
+    @Override
+    public void hide() {
+        visibility = HIDE_OBJECT;
+    }
+
+    @Override
+    public void show() {
+        visibility = SHOW_OBJECT;
+    }
+
+    @Override
+    public boolean isShow() {
+        return visibility;
     }
 }

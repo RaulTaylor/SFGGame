@@ -17,6 +17,7 @@ public class BackGround implements VisualObject {
 
     public BackGround(Texture texture){
         this.texture = texture;
+        show();
     }
 
     @Override

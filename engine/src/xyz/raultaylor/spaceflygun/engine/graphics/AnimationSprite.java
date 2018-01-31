@@ -22,6 +22,7 @@ public class AnimationSprite implements VisualObject{
     private float width;
     private Vector2 position;
     private float timeOfFrame;
+    private boolean visibility;
 
     private boolean flagPlay;
     public static boolean PLAY = true;
@@ -94,7 +95,9 @@ public class AnimationSprite implements VisualObject{
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(textures[currentFrame], position.x - width/2, position.y - height/2);
+        if(visibility) {
+            spriteBatch.draw(textures[currentFrame], position.x - width / 2, position.y - height / 2);
+        }
     }
 
     @Override
@@ -102,6 +105,26 @@ public class AnimationSprite implements VisualObject{
         for(TextureRegion texture: textures){
             texture = null;
         }
+    }
+
+    @Override
+    public boolean isHide() {
+        return !visibility;
+    }
+
+    @Override
+    public void hide() {
+        visibility = HIDE_OBJECT;
+    }
+
+    @Override
+    public void show() {
+        visibility = SHOW_OBJECT;
+    }
+
+    @Override
+    public boolean isShow() {
+        return visibility;
     }
 
     @Override

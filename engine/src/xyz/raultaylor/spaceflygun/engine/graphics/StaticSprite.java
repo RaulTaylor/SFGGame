@@ -15,6 +15,27 @@ public class StaticSprite implements VisualObject{
     private Vector2 position;
     private float height;
     private float width;
+    private boolean visibility;
+
+    @Override
+    public boolean isHide() {
+        return !visibility;
+    }
+
+    @Override
+    public void hide() {
+        visibility = HIDE_OBJECT;
+    }
+
+    @Override
+    public void show() {
+        visibility = SHOW_OBJECT;
+    }
+
+    @Override
+    public boolean isShow() {
+        return visibility;
+    }
 
     public StaticSprite(Texture texture, Vector2 position){
         this.texture = texture;
@@ -34,8 +55,10 @@ public class StaticSprite implements VisualObject{
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        drawPosition.set(position.x - width/2, position.y - height/2);
-        spriteBatch.draw(texture, drawPosition.x,drawPosition.y);
+        if(visibility) {
+            drawPosition.set(position.x - width / 2, position.y - height / 2);
+            spriteBatch.draw(texture, drawPosition.x, drawPosition.y);
+        }
     }
 
     @Override

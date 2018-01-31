@@ -17,12 +17,34 @@ public class Player implements VisualObject {
     private Vector2 position;
     private Vector2 targetPos;
     private float speed;
+    private boolean visibility;
 
     public Player(Texture texture,Vector2 startPosition, float speed) {
         this.speed = speed;
         position = startPosition;
         targetPos = new Vector2(startPosition);
         sprite = new StaticSprite(texture, position);
+        show();
+    }
+
+    @Override
+    public boolean isHide() {
+        return !visibility;
+    }
+
+    @Override
+    public void hide() {
+        sprite.hide();
+    }
+
+    @Override
+    public void show() {
+        sprite.show();
+    }
+
+    @Override
+    public boolean isShow() {
+        return visibility;
     }
 
     @Override

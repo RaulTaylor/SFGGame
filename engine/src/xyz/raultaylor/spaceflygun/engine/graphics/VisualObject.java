@@ -7,7 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 public interface VisualObject {
+
+    boolean SHOW_OBJECT = true;
+    boolean HIDE_OBJECT = false;
+
     void update(float delta);
     void render(SpriteBatch sb);
     void dispose();
+    boolean isHide();
+    void hide();
+    void show();
+    boolean isShow();
 }

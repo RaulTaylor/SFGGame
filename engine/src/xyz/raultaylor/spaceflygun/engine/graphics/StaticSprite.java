@@ -2,20 +2,21 @@ package xyz.raultaylor.spaceflygun.engine.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+
+import xyz.raultaylor.spaceflygun.engine.base.Rect;
 
 /**
  * Created by raultaylor on 28.01.18.
  */
 
-public class StaticSprite implements VisualObject{
-    private Texture texture;
-    private Vector2 drawPosition;
-    private Vector2 position;
-    private float height;
-    private float width;
-    private boolean visibility;
+public class StaticSprite extends Rect implements VisualObject{
+    protected TextureRegion[] textures;
+    protected boolean visibility;
+    protected float angle;
+    protected float scale;
+    protected int currentFrame;
 
     @Override
     public boolean isHide() {
@@ -37,45 +38,62 @@ public class StaticSprite implements VisualObject{
         return visibility;
     }
 
-    public StaticSprite(Texture texture, Vector2 position){
-        this.texture = texture;
-        this.height = texture.getHeight();
-        this.width = texture.getWidth();
-        this.position = position;
-        this.drawPosition = new Vector2(position.x - width/2, position.y - height/2);
+    public StaticSprite(TextureRegion[] textures, Vector2 position){
+        this.textures = textures;
+        this.pos.set(position);
+        this.angle = 0f;
+        this.scale = 0f;
+        currentFrame = 0;
+        show();
     }
 
-    public StaticSprite(Texture texture){
-        this(texture, new Vector2(0,0));
-    }
+    //public StaticSprite(Texture texture){
+      //  this(texture, new Vector2(0,0));
+    //}
 
-    @Override
-    public void update(float delta) {
-    }
 
     @Override
-    public void render(SpriteBatch spriteBatch) {
+    public void draw(SpriteBatch spriteBatch) {
         if(visibility) {
-            drawPosition.set(position.x - width / 2, position.y - height / 2);
-            spriteBatch.draw(texture, drawPosition.x, drawPosition.y);
+            spriteBatch.draw(
+                    textures[currentFrame], // текущий регион
+                    getLeft(), getBottom(), // точка отрисовки
+                    halfWidth, halfHeight, // точка вращения
+                    getWidth(), getHeight(), // ширина и высота
+                    scale, scale, // масштаб по x и y
+                    angle // угол вращения
+            );
         }
     }
 
     @Override
     public void dispose() {
-        texture.dispose();
+        this.textures[currentFrame] = null;
+
     }
 
     public void setPosition(Vector2 position){
-        this.position = position;
+        this.pos.set(position);
     }
 
-    public void setStaticPosition(Vector2 staticPosition){
-        setPosition(new Vector2(staticPosition));
+
+    public float getAngle() {
+        return angle;
     }
 
-    public void setStaticPosition(float x, float y){
-        setPosition(new Vector2(x,y));
+    public void setAngle(float angle) {
+        this.angle = angle;
     }
 
+    public float getScale() {
+        return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    public void resize(Rect worldBounds){
+
+    }
 }
